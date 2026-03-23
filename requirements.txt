@@ -3,4 +3,5 @@ numpy
 seaborn
 fastapi
 uvicorn
--e .
+scikit-learn
+#-e .
