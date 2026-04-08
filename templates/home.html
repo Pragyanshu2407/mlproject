@@ -1,83 +1,108 @@
+<!DOCTYPE html>
 <html>
+<head>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f5f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:2rem;width:100%;max-width:560px}
+.header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #e0e0e0}
+.header h1{font-size:20px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+.header p{font-size:13px;color:#666}
+.badge{display:inline-block;background:#EEEDFE;color:#3C3489;font-size:11px;padding:3px 10px;border-radius:6px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font-size:13px;color:#555;font-weight:500}
+.field select,.field input{width:100%;padding:8px 12px;font-size:14px;border:1px solid #ddd;border-radius:8px;outline:none}
+.field select:focus,.field input:focus{border-color:#7F77DD;box-shadow:0 0 0 3px #EEEDFE}
+.scores{background:#f9f9f9;border-radius:8px;padding:1rem;margin-bottom:1.5rem}
+.scores h3{font-size:13px;font-weight:500;color:#666;margin-bottom:12px}
+.btn{width:100%;padding:10px;background:#534AB7;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer}
+.btn:hover{background:#3C3489}
+.result{margin-top:1.5rem;padding:1rem;background:#EEEDFE;border-radius:8px;text-align:center;border:1px solid #AFA9EC}
+.result p{font-size:13px;color:#534AB7;margin-bottom:4px}
+.result h2{font-size:28px;font-weight:600;color:#3C3489}
+</style>
+</head>
 <body>
-    <div class="login">
-        <h1>Student Exam Performance Indicator</h1>
-
-        <form action="/predictdata" method="post">
-            <h1>
-                <legend>Student Exam Performance Prediction</legend>
-            </h1>
-            <div class="mb-3">
-                <label class="form-label">Gender</label>
-                <select class="form-control" name="gender" required>
-                    <option selected disabled value="">Select your Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Race or Ethnicity</label>
-                <select class="form-control" name="race_ethnicity" required>  <!-- Bug 1 fixed -->
-                    <option selected disabled value="">Select Ethnicity</option>
-                    <option value="group A">Group A</option>
-                    <option value="group B">Group B</option>
-                    <option value="group C">Group C</option>
-                    <option value="group D">Group D</option>
-                    <option value="group E">Group E</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Parental Level of Education</label>
-                <select class="form-control" name="parental_level_of_education" required>
-                    <option selected disabled value="">Select Parent Education</option>
-                    <option value="associate's degree">associate's degree</option>
-                    <option value="bachelor's degree">bachelor's degree</option>
-                    <option value="high school">high school</option>
-                    <option value="master's degree">master's degree</option>
-                    <option value="some college">some college</option>
-                    <option value="some high school">some high school</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Lunch Type</label>
-                <select class="form-control" name="lunch" required>
-                    <option selected disabled value="">Select Lunch Type</option>
-                    <option value="free/reduced">free/reduced</option>
-                    <option value="standard">standard</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Test Preparation Course</label>
-                <select class="form-control" name="test_preparation_course" required>
-                    <option selected disabled value="">Select Test Course</option>
-                    <option value="none">None</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </div>
-
-            <!-- Bug 2 fixed — labels and input names now match correctly -->
-            <div class="mb-3">
-                <label class="form-label">Reading Score out of 100</label>
-                <input class="form-control" type="number" name="reading_score"
-                    placeholder="Enter your Reading Score" min='0' max='100' />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Writing Score out of 100</label>
-                <input class="form-control" type="number" name="writing_score"
-                    placeholder="Enter your Writing Score" min='0' max='100' />
-            </div>
-
-            <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="Predict your Maths Score" />
-            </div>
-        </form>
-
-        <h2>The Prediction is: {{results}}</h2>
+<div class="card">
+  <div class="header">
+    <span class="badge">ML Predictor</span>
+    <h1>Student exam performance indicator</h1>
+    <p>Enter student details to predict math score</p>
+  </div>
+  <form action="/predictdata" method="post">
+    <div class="grid">
+      <div class="field">
+        <label>Gender</label>
+        <select name="gender" required>
+          <option disabled selected value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Race / ethnicity</label>
+        <select name="race_ethnicity" required>
+          <option disabled selected value="">Select group</option>
+          <option value="group A">Group A</option>
+          <option value="group B">Group B</option>
+          <option value="group C">Group C</option>
+          <option value="group D">Group D</option>
+          <option value="group E">Group E</option>
+        </select>
+      </div>
     </div>
+    <div class="field">
+      <label>Parental level of education</label>
+      <select name="parental_level_of_education" required>
+        <option disabled selected value="">Select education level</option>
+        <option value="some high school">Some high school</option>
+        <option value="high school">High school</option>
+        <option value="some college">Some college</option>
+        <option value="associate's degree">Associate's degree</option>
+        <option value="bachelor's degree">Bachelor's degree</option>
+        <option value="master's degree">Master's degree</option>
+      </select>
+    </div>
+    <div class="grid">
+      <div class="field">
+        <label>Lunch type</label>
+        <select name="lunch" required>
+          <option disabled selected value="">Select type</option>
+          <option value="standard">Standard</option>
+          <option value="free/reduced">Free / reduced</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Test preparation course</label>
+        <select name="test_preparation_course" required>
+          <option disabled selected value="">Select status</option>
+          <option value="none">None</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+    </div>
+    <div class="scores">
+      <h3>Academic scores</h3>
+      <div class="grid">
+        <div class="field">
+          <label>Reading score (0–100)</label>
+          <input type="number" name="reading_score" placeholder="e.g. 75" min="0" max="100" required />
+        </div>
+        <div class="field">
+          <label>Writing score (0–100)</label>
+          <input type="number" name="writing_score" placeholder="e.g. 80" min="0" max="100" required />
+        </div>
+      </div>
+    </div>
+    <button class="btn" type="submit">Predict math score</button>
+  </form>
+  {% if results %}
+  <div class="result">
+    <p>Predicted math score</p>
+    <h2>{{ results }}</h2>
+  </div>
+  {% endif %}
+</div>
 </body>
 </html>
