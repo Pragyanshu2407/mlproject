@@ -3,9 +3,8 @@ uvicorn
 scikit-learn
 pandas
 numpy
-xgboost
-catboost
+
 gunicorn
 dill
 Jinja2
-python-multipart
+python-multipart.txt
