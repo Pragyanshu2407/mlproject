@@ -1,10 +1,11 @@
-pandas
-numpy 
-seaborn
 fastapi
 uvicorn
 scikit-learn
-dill
+pandas
+numpy
+xgboost
+catboost
 gunicorn
-
-#-e .
+dill
+Jinja2
+python-multipart
